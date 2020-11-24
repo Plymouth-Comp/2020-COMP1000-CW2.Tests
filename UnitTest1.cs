@@ -53,7 +53,7 @@ namespace Crawler.Tests
             Setup();
             crawler.ProcessUserInput("load Simple.map");
 
-            Assert.True(crawler.GetOriginalMap().Length == 31, "Map loading is not working unsing the load command ");
+            Assert.True(crawler.GetOriginalMap().Length == 11, "Map loading is not working unsing the load command ");
         }
 
         [Fact]
