@@ -44,7 +44,7 @@ namespace Crawler.Tests
             Setup();
             bool result = crawler.InitializeMap("Simple.map");
             int yDim = crawler.GetOriginalMap().Length;
-            Assert.True(result && yDim == 10, "Map loading is not working: The y dimension for the simple map shoudl be 10 but is " + yDim)
+            Assert.True(result && yDim == 10, "Map loading is not working: The y dimension for the simple map shoudl be 10 but is " + yDim);
             int xDim = crawler.GetOriginalMap()[0].Length;
             Assert.True(result && xDim == 31, "Map loading is not working: The x dimension for the simple map shoudl be 31 but is "+xDim);
         }
