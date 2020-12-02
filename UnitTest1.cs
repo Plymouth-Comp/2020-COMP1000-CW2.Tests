@@ -190,7 +190,7 @@ namespace Crawler.Tests
             Assert.True(pos[0]+16 == pos2[0] && pos[1] == pos2[1], $"The player is moving to far, it should not be able to move onto a wall. " +
                 $"The player should be at [{pos[0]+16},{pos[1]}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1]+16][pos[0]] == '@', $"The current map is not correctly showing the player standing still but shows {curr[pos[1]][pos[0]]}.");
+            //advanced Assert.True(curr[pos[1]+16][pos[0]] == '@', $"The current map is not correctly showing the player standing still but shows {curr[pos[1]][pos[0]]}.");
             Assert.True(curr[pos2[1] + 1][pos[0]] == '#', $"The current map is not correctly showing the player standing infront of a wall.");
         }
 
