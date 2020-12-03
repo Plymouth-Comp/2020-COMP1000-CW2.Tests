@@ -88,6 +88,30 @@ namespace Crawler.Tests
         }
 
         [Fact]
+        public void TestPlayerActions()
+        {
+            Setup();
+            crawler.ProcessUserInput("load Simple.map");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "No player action should be received yet.");
+            crawler.ProcessUserInput("W");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "Even though player used a movement command the game is not active. " +
+                "thus, no playeraction should be triggered.");
+            crawler.ProcessUserInput("play");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "No player action should be received yet.");
+            Assert.False(crawler.GameIsRunning(), "The game should not be running as we have a map and the user command play was used.");
+            crawler.ProcessUserInput("D");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.EAST, "Game is Active and player triggered moving using 'D' but not the correct action was triggered");
+            crawler.ProcessUserInput("W");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NORTH, "Game is Active and player triggered moving using 'W' but not the correct action was triggered");
+            crawler.ProcessUserInput("A");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.WEST, "Game is Active and player triggered moving using 'A' but not the correct action was triggered");
+            crawler.ProcessUserInput("S");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.WEST, "Game is Active and player triggered moving using 'S' but not the correct action was triggered");
+            crawler.ProcessUserInput("play");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "Game is Active and player typed in play again which should do nothing.");
+        }
+
+        [Fact]
         public void TestGameWithWrongOrder()
         {
             Setup();
