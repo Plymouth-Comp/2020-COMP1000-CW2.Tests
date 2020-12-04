@@ -107,7 +107,7 @@ namespace Crawler.Tests
             crawler.ProcessUserInput("A");
             Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.WEST, "Game is Active and player triggered moving using 'A' but not the correct action was triggered");
             crawler.ProcessUserInput("S");
-            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.WEST, "Game is Active and player triggered moving using 'S' but not the correct action was triggered");
+            Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.SOUTH, "Game is Active and player triggered moving using 'S' but not the correct action was triggered");
             crawler.ProcessUserInput("play");
             Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "Game is Active and player typed in play again which should do nothing.");
         }
