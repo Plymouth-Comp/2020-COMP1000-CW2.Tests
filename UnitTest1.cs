@@ -194,7 +194,8 @@ namespace Crawler.Tests
                 $"The player should be at [{pos[0]},{pos[1]}] but is at [{pos2[0]},{pos2[1]}]");
             char[][] curr = crawler.GetCurrentMapState();
             Assert.True(curr[pos[1]][pos[0]] == '@', $"The current map is not correctly showing the player standing still but shows {curr[pos[1]][pos[0]]}.");
-            Assert.False(curr[pos[1]][pos[0]-1] != '@', $"The current map is not correctly showing the player standing still but shows {curr[pos2[1]][pos2[0]]}.");
+            Assert.True(curr[pos[1]][pos[0]-1] == '#', $"The current map is not correctly showing the player standing still in front of the wall but shows {curr[pos[1]][pos[0]-1]} in the wall.");
+
 
             //second move
             pos = (int[])crawler.GetPlayerPosition().Clone();
@@ -204,7 +205,7 @@ namespace Crawler.Tests
                 $"The player should be at [{pos[0]},{pos[1]}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
             Assert.True(curr[pos[1]][pos[0]] == '@', $"The current map is not correctly showing the player standing still but shows {curr[pos[1]][pos[0]]}.");
-            Assert.False(curr[pos[1]+1][pos[0]] != '@', $"The current map is not correctly showing the player standing still but shows {curr[pos2[1]][pos2[0]]}.");
+            Assert.True(curr[pos[1]+1][pos[0]] == '#', $"The current map is not correctly showing the player standing still in front of the wall but shows {curr[pos[1] + 1][pos[0]]} in the wall.");
 
             //series of moves
             pos = (int[])crawler.GetPlayerPosition().Clone();
