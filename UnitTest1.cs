@@ -309,7 +309,7 @@ namespace Crawler.Tests
                 $"The player should be at [{pos[0]},{pos[1] - 1}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
             Assert.True(curr[pos[1]-1][pos[0]] == 'E' || curr[pos[1] - 1][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]-1][pos[0]]}.");
-            Assert.True(orig[pos2[1]][pos2[0]] == 'E' , $"The original map is not correctly showing the player but shows {curr[pos[1] - 1][pos[0]]}.");
+            Assert.True(orig[pos2[1]][pos2[0]] == 'E' , $"The original map is not correctly showing the unchanged map with the Exit but shows {curr[pos[1] - 1][pos[0]]}.");
             //reaching the Exit
             Assert.False(crawler.GameIsRunning(), "The game should finished as the player reached the Exit.");
 
