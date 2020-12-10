@@ -99,7 +99,7 @@ namespace Crawler.Tests
                 "thus, no playeraction should be triggered.");
             crawler.ProcessUserInput("play");
             Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.NOTHING, "No player action should be received yet.");
-            Assert.True(crawler.GameIsRunning(), "The game be running as we have a map and the user command play was used.");
+            Assert.True(crawler.GameIsRunning(), "The game should be running as we have a map and the user command play was used.");
             crawler.ProcessUserInput("D");
             Assert.True(crawler.GetPlayerAction() == (int)CMDCrawler.PlayerActions.EAST, "Game is Active and player triggered moving using 'D' but not the correct action was triggered");
             crawler.ProcessUserInput("W");
@@ -236,7 +236,7 @@ namespace Crawler.Tests
             Setup();
             crawler.ProcessUserInput("load Simple.map");
             crawler.ProcessUserInput("play");
-
+            char[][] orig = crawler.GetOriginalMap();
             //first move
             int[] pos = (int[])crawler.GetPlayerPosition().Clone();
             Assert.True(crawler.GameIsRunning(), "The game should now be running as we have a map and the user command play was used.");
@@ -259,7 +259,7 @@ namespace Crawler.Tests
             Assert.True(pos[0] == pos2[0] && pos[1] == pos2[1]+4, $"The player is moving wrong. " +
                 $"The player should be at [{pos[0]},{pos[1]-4}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1]][pos[0]-4] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]][pos[0] - 4]}.");
+            Assert.True(curr[pos[1] - 4][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1] - 4][pos[0]]}.");
         
             //moving East
             pos = (int[])crawler.GetPlayerPosition().Clone();
@@ -272,20 +272,20 @@ namespace Crawler.Tests
             Assert.True(pos[0]+21 == pos2[0] && pos[1] == pos2[1], $"The player is moving wrong. " +
                 $"The player should be at [{pos[0]+21},{pos[1]}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1]+21][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]+21][pos[0]]}.");
+            Assert.True(curr[pos[1]][pos[0]+21] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]][pos[0]+21]}.");
 
             //moving South
             pos = (int[])crawler.GetPlayerPosition().Clone();
             for (int y = 0; y < 3; y++)
             {
-                crawler.ProcessUserInput("D");
+                crawler.ProcessUserInput("S");
                 crawler.GameLoop(true);
             }
             pos2 = crawler.GetPlayerPosition();
             Assert.True(pos[0] == pos2[0] && pos[1]+3 == pos2[1], $"The player is moving wrong. " +
                 $"The player should be at [{pos[0]},{pos[1]+3}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1]][pos[0] + 3] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]][pos[0] + 3]}.");
+            Assert.True(curr[pos[1] + 3][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1] + 3][pos[0]]}.");
 
             //moving West
             pos = (int[])crawler.GetPlayerPosition().Clone();
@@ -298,7 +298,7 @@ namespace Crawler.Tests
             Assert.True(pos[0]-5 == pos2[0] && pos[1] == pos2[1], $"The player is moving wrong. " +
                 $"The player should be at [{pos[0] -5},{pos[1]}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1] - 5][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1] - 5][pos[0]]}.");
+            Assert.True(curr[pos[1]][pos[0] - 5] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]][pos[0] - 5]}.");
 
             //moving North
             pos = (int[])crawler.GetPlayerPosition().Clone();
@@ -308,8 +308,8 @@ namespace Crawler.Tests
             Assert.True(pos[0] == pos2[0] && pos[1]-1 == pos2[1], $"The player is moving wrong. " +
                 $"The player should be at [{pos[0]},{pos[1] - 1}] but is at [{pos2[0]},{pos2[1]}]");
             curr = crawler.GetCurrentMapState();
-            Assert.True(curr[pos[1]][pos[0] - 1] == 'E', $"The current map is not correctly showing the player but shows {curr[pos[1]][pos[0] - 4]}.");
-            
+            Assert.True(curr[pos[1]-1][pos[0]] == 'E' || curr[pos[1] - 1][pos[0]] == '@', $"The current map is not correctly showing the player but shows {curr[pos[1]-1][pos[0]]}.");
+            Assert.True(orig[pos2[1]][pos2[0]] == 'E' , $"The original map is not correctly showing the player but shows {curr[pos[1] - 1][pos[0]]}.");
             //reaching the Exit
             Assert.False(crawler.GameIsRunning(), "The game should finished as the player reached the Exit.");
 
